@@ -1301,8 +1301,8 @@ export function App() {
               </button>
               {showLangMenu && (
                 <>
-                  <div className="fixed inset-0 z-40" onClick={() => setShowLangMenu(false)} />
-                  <div className="absolute right-0 top-full z-50 mt-2 w-48 rounded-lg border border-slate-700 bg-slate-800 py-1 shadow-xl">
+                  <div className="fixed inset-0 z-[100]" onClick={() => setShowLangMenu(false)} />
+                  <div className="absolute right-0 top-full z-[101] mt-2 max-h-[70vh] w-48 overflow-y-auto rounded-lg border border-slate-700 bg-slate-900 py-1 shadow-2xl backdrop-blur-xl">
                     {LANGUAGES.map((lang) => (
                       <button
                         key={lang.code}
@@ -1311,14 +1311,14 @@ export function App() {
                           setShowLangMenu(false);
                         }}
                         className={cn(
-                          'flex w-full items-center gap-3 px-4 py-2 text-left text-sm transition',
+                          'flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm transition',
                           language === lang.code
                             ? 'bg-emerald-600/20 text-emerald-400'
-                            : 'text-slate-300 hover:bg-slate-700'
+                            : 'text-slate-300 hover:bg-slate-800'
                         )}
                       >
                         <span className="text-xl">{lang.flag}</span>
-                        <span>{lang.name}</span>
+                        <span className="font-medium">{lang.name}</span>
                       </button>
                     ))}
                   </div>
