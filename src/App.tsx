@@ -1275,7 +1275,7 @@ export function App() {
       <div className="pointer-events-none fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyMDI5M2MiIGZpbGwtb3BhY2l0eT0iMC4yIj48cGF0aCBkPSJNMzYgMzBoLTZWMGg2djMwem0tNiAwSDB2LTZoMzB2NnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-30" />
 
       {/* Header */}
-      <header className="relative border-b border-slate-800 bg-slate-900/90 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-slate-800 bg-slate-900/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-lg shadow-emerald-500/20">
@@ -1291,7 +1291,7 @@ export function App() {
 
           <div className="flex items-center gap-2">
             {/* Language Switcher */}
-            <div className="relative">
+            <div className="relative z-[60]">
               <button
                 onClick={() => setShowLangMenu(!showLangMenu)}
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-700 bg-slate-800 text-xl transition hover:border-slate-600 hover:bg-slate-700"
@@ -1301,8 +1301,8 @@ export function App() {
               </button>
               {showLangMenu && (
                 <>
-                  <div className="fixed inset-0 z-[100]" onClick={() => setShowLangMenu(false)} />
-                  <div className="absolute right-0 top-full z-[101] mt-2 max-h-[70vh] w-48 overflow-y-auto rounded-lg border border-slate-700 bg-slate-900 py-1 shadow-2xl backdrop-blur-xl">
+                  <div className="fixed inset-0 z-[200]" onClick={() => setShowLangMenu(false)} />
+                  <div className="absolute right-0 top-full z-[201] mt-2 max-h-[70vh] w-48 overflow-y-auto rounded-lg border border-slate-700 bg-slate-900 py-1 shadow-2xl backdrop-blur-xl">
                     {LANGUAGES.map((lang) => (
                       <button
                         key={lang.code}
