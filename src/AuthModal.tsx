@@ -3,7 +3,6 @@ import { X, Mail, Lock, User, AlertCircle, CheckCircle2, Loader2 } from 'lucide-
 import { register, login, validatePassword, requestPasswordReset, generateResetToken } from './localAuth';
 import { cn } from './utils/cn';
 import type { Language } from './i18n';
-import emailjs from '@emailjs/browser';
 
 type AuthView = 'login' | 'register' | 'reset';
 
@@ -94,33 +93,12 @@ export function AuthModal({ onClose, onSuccess, language, t }: AuthModalProps) {
         // Формирование ссылки для восстановления
         const resetLink = `${window.location.origin}${window.location.pathname}?reset=${token}`;
         
-        // Инициализация EmailJS
-        emailjs.init('iSL_LvH8RJqVYmHqH');
-        
-        // Отправка email через EmailJS
+        // Копируем ссылку в буфер обмена
         try {
-          const response = await emailjs.send(
-            'service_xvoldata',
-            'template_xvoldata',
-            {
-              to_email: result.email,
-              to_name: emailOrUsername,
-              reset_link: resetLink,
-              app_name: 'xVolData',
-            }
-          );
-          
-          console.log('Email sent successfully:', response);
-          setSuccess(`Письмо с инструкциями отправлено на ${result.email}. Проверьте папку "Спам", если не видите письмо.`);
-          
-          setTimeout(() => {
-            setView('login');
-            setSuccess('');
-          }, 5000);
-        } catch (emailError: any) {
-          console.error('Email sending failed:', emailError);
-          // Fallback: показываем ссылку если email не отправился
-          setSuccess(`Не удалось отправить email. Используйте эту ссылку для восстановления: ${resetLink}`);
+          await navigator.clipboard.writeText(resetLink);
+          setSuccess(`✅ Ссылка для восстановления скопирована в буфер обмена!\n\n📧 Отправьте её себе на почту: ${result.email}\n\n⏰ Ссылка действительна 1 час.`);
+        } catch {
+          setSuccess(`📧 Отправьте эту ссылку себе на почту ${result.email}:\n\n${resetLink}\n\n⏰ Ссылка действительна 1 час.`);
         }
       } else {
         setError(result.message);
@@ -183,9 +161,15 @@ export function AuthModal({ onClose, onSuccess, language, t }: AuthModalProps) {
             </div>
           )}
           {success && (
-            <div className="mb-4 flex items-start gap-2 rounded-lg bg-emerald-500/10 p-3 text-sm text-emerald-400">
-              <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0" />
-              <p>{success}</p>
+            <div className="mb-4 rounded-lg bg-emerald-500/10 p-3 text-sm text-emerald-400">
+              <div className="flex items-start gap-2">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0" />
+                <div className="flex-1">
+                  {success.split('\n').map((line, i) => (
+                    <p key={i} className={i > 0 ? 'mt-2' : ''}>{line}</p>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
