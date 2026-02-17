@@ -141,7 +141,7 @@ function ModCard({
             onClick={onViewVersions}
             className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-emerald-500"
           >
-            <Layers className="h-3 w-3" /> Версии
+            <Layers className="h-3 w-3" /> {t('versions')}
           </button>
           <button
             onClick={onToggle}
@@ -154,11 +154,11 @@ function ModCard({
           >
             {isSelected ? (
               <>
-                <Trash2 className="h-3 w-3" /> Убрать
+                <Trash2 className="h-3 w-3" /> {t('remove')}
               </>
             ) : (
               <>
-                <Star className="h-3 w-3" /> В список
+                <Star className="h-3 w-3" /> {t('addToList')}
               </>
             )}
           </button>
@@ -218,7 +218,7 @@ function VersionModal({
           {loading && (
             <div className="flex flex-col items-center justify-center py-12">
               <Loader2 className="h-8 w-8 animate-spin text-emerald-500" />
-              <p className="mt-3 text-sm text-slate-400">Загрузка версий...</p>
+              <p className="mt-3 text-sm text-slate-400">{t('loadingVersions')}</p>
             </div>
           )}
           {error && (
@@ -231,7 +231,7 @@ function VersionModal({
             <div className="py-12 text-center">
               <Info className="mx-auto h-8 w-8 text-slate-600" />
               <p className="mt-3 text-sm text-slate-400">
-                Файлы не найдены для выбранной версии и загрузчика
+                {t('noFilesFound')}
               </p>
             </div>
           )}
@@ -273,7 +273,7 @@ function VersionModal({
                       onClick={() => onSelectFile(mod, file)}
                       className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-emerald-500"
                     >
-                      <Star className="h-3 w-3" /> Выбрать
+                      <Star className="h-3 w-3" /> {t('select')}
                     </button>
                     {file.url && (
                       <a
@@ -282,7 +282,7 @@ function VersionModal({
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 rounded-lg bg-slate-700 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:bg-slate-600"
                       >
-                        <Download className="h-3 w-3" /> Скачать
+                        <Download className="h-3 w-3" /> {t('download')}
                       </a>
                     )}
                   </div>
@@ -326,9 +326,9 @@ function ModListPanel({
     return (
       <div className="rounded-xl border border-dashed border-slate-700 bg-slate-800/40 p-6 text-center">
         <Package className="mx-auto h-8 w-8 text-slate-600" />
-        <p className="mt-2 text-sm text-slate-500">Добавьте моды в список</p>
+        <p className="mt-2 text-sm text-slate-500">{t('addMods')}</p>
         <p className="mt-1 text-xs text-slate-600">
-          Нажмите «В список» на карточке мода или «Выбрать» в списке версий
+          {t('clickToAdd')}
         </p>
       </div>
     );
@@ -339,7 +339,7 @@ function ModListPanel({
       <div className="flex items-center justify-between border-b border-slate-700 p-4">
         <h3 className="flex items-center gap-2 text-sm font-semibold text-white">
           <FileDown className="h-4 w-4 text-emerald-400" />
-          Список модов ({mods.length})
+          {t('modList')} ({mods.length})
         </h3>
         <div className="flex gap-2">
           <button
@@ -347,19 +347,19 @@ function ModListPanel({
             className="inline-flex items-center gap-1 rounded-lg bg-slate-700 px-2.5 py-1.5 text-xs text-slate-300 transition hover:bg-slate-600"
           >
             {copied ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
-            {copied ? 'Готово!' : 'Ссылки'}
+            {copied ? t('copied') : t('links')}
           </button>
           <button
             onClick={onExport}
             className="inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-2.5 py-1.5 text-xs text-white transition hover:bg-emerald-500"
           >
-            <Download className="h-3 w-3" /> Экспорт
+            <Download className="h-3 w-3" /> {t('export')}
           </button>
           <button
             onClick={onClear}
             className="inline-flex items-center gap-1 rounded-lg bg-red-600/20 px-2.5 py-1.5 text-xs text-red-400 transition hover:bg-red-600/30"
           >
-            <Trash2 className="h-3 w-3" /> Очистить
+            <Trash2 className="h-3 w-3" /> {t('clear')}
           </button>
         </div>
       </div>
@@ -399,7 +399,7 @@ function ModListPanel({
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded p-1.5 text-slate-400 transition hover:bg-slate-700 hover:text-white"
-                  title="Скачать"
+                  title={t('download')}
                 >
                   <Download className="h-3.5 w-3.5" />
                 </a>
@@ -413,14 +413,14 @@ function ModListPanel({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded p-1.5 text-slate-400 transition hover:bg-slate-700 hover:text-white"
-                title="Открыть на сайте"
+                title={t('openOnSite')}
               >
                 <ExternalLink className="h-3.5 w-3.5" />
               </a>
               <button
                 onClick={() => onRemove(`${mod.source}-${mod.id}`)}
                 className="rounded p-1.5 text-slate-400 transition hover:bg-red-600/20 hover:text-red-400"
-                title="Удалить"
+                title={t('delete')}
               >
                 <X className="h-3.5 w-3.5" />
               </button>
@@ -1475,7 +1475,7 @@ export function App() {
                     </span>
                   ) : (
                     <>
-                      Найдено: <span className="font-semibold text-white">{totalResults}</span> модов
+                      {t('found')} <span className="font-semibold text-white">{totalResults}</span> {t('mods')}
                     </>
                   )}
                 </p>
