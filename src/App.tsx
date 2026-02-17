@@ -4,7 +4,7 @@ import {
   Package, Layers, Trash2, FileDown, Copy, Check,
   AlertCircle, Loader2, Info, Star, Key, RefreshCw,
   Upload, FileText, CheckCircle2, XCircle, Clock,
-  FolderOpen, Languages,
+  FolderOpen,
 } from 'lucide-react';
 import {
   type UnifiedMod, type UnifiedFile, type ImportResult,
@@ -701,7 +701,7 @@ function ImportModal({
                   <textarea
                     value={manualInput}
                     onChange={(e) => setManualInput(e.target.value)}
-                    placeholder={`Введите названия или slug модов, по одному на строку:\n\nsodium\nlithium\niris\nfabric-api\ncreate\n...`}
+                    placeholder={`${t('manualInputPlaceholder')}:\n\nsodium\nlithium\niris\nfabric-api\ncreate\n...`}
                     className="h-48 w-full rounded-xl border border-slate-700 bg-slate-800 p-4 text-sm text-slate-200 placeholder-slate-500 outline-none transition focus:border-violet-500 focus:ring-1 focus:ring-violet-500/50"
                   />
                   <button
@@ -789,7 +789,7 @@ function ImportModal({
                       <div className="rounded-lg bg-slate-900/60 p-3">
                         <p className="text-xs text-slate-400">
                           <Info className="mr-1 inline h-3 w-3" />
-                          Будут использованы параметры из файла:
+                          {t('fileParamsUsed')}
                           {detectedVersion && (
                             <span className="ml-1 font-medium text-emerald-400">MC {detectedVersion}</span>
                           )}
@@ -797,10 +797,10 @@ function ImportModal({
                             <span className="ml-1 font-medium text-indigo-300">{detectedLoader}</span>
                           )}
                           {!detectedVersion && gameVersion && (
-                            <span className="ml-1 font-medium text-emerald-400">MC {gameVersion} (из фильтра)</span>
+                            <span className="ml-1 font-medium text-emerald-400">MC {gameVersion} ({t('fromFilter')})</span>
                           )}
                           {!detectedLoader && loader && (
-                            <span className="ml-1 font-medium text-indigo-300">{loader} (из фильтра)</span>
+                            <span className="ml-1 font-medium text-indigo-300">{loader} ({t('fromFilter')})</span>
                           )}
                         </p>
                       </div>
@@ -811,8 +811,8 @@ function ImportModal({
                       <div className="rounded-lg border border-orange-500/20 bg-orange-500/5 p-3">
                         <p className="text-xs text-orange-400">
                           <AlertCircle className="mr-1 inline h-3 w-3" />
-                          <span className="font-medium">Совет:</span> Добавьте API ключ CurseForge для расширенного поиска.
-                          Если мод не найден на Modrinth, он будет автоматически искаться на CurseForge.
+                          <span className="font-medium">{t('tip')}</span> {t('addCfApiKey')}
+                          {t('modNotFoundModrinth')}
                           <br />
                           <a
                             href="https://console.curseforge.com"
@@ -820,7 +820,7 @@ function ImportModal({
                             rel="noopener noreferrer"
                             className="mt-1 inline-block font-medium text-orange-300 underline underline-offset-2 hover:text-orange-200"
                           >
-                            Получить ключ → console.curseforge.com
+                            {t('getKey')} → console.curseforge.com
                           </a>
                         </p>
                       </div>
@@ -830,8 +830,7 @@ function ImportModal({
                       <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-3">
                         <p className="text-xs text-emerald-400">
                           <CheckCircle2 className="mr-1 inline h-3 w-3" />
-                          <span className="font-medium">Мультиисточник активен:</span> Поиск на Modrinth → CurseForge.
-                          Если мод не найден на Modrinth, он будет автоматически найден на CurseForge.
+                          <span className="font-medium">{t('multiSourceActiveLabel')}</span> {t('multiSourceDescription')}
                         </p>
                       </div>
                     )}
@@ -843,7 +842,7 @@ function ImportModal({
                     className="w-full rounded-lg bg-gradient-to-r from-violet-600 to-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:from-violet-500 hover:to-emerald-500"
                   >
                     <Download className="mr-2 inline h-4 w-4" />
-                    Начать импорт ({parsedMods.length} модов)
+                    {t('startImportButton')} ({parsedMods.length} {t('modsCount')})
                   </button>
                 </>
               )}
@@ -852,11 +851,11 @@ function ImportModal({
               {parsedMods.length === 0 && (
                 <div className="mt-4 rounded-xl border border-slate-800 bg-slate-800/30 p-4">
                   <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold text-slate-400">
-                    <Info className="h-3.5 w-3.5" /> Примеры поддерживаемых форматов
+                    <Info className="h-3.5 w-3.5" /> {t('supportedFormatsExamples')}
                   </h4>
                   <div className="grid gap-3 sm:grid-cols-2">
                     <div>
-                      <p className="mb-1 text-xs font-medium text-slate-300">📄 Текстовый файл (.txt)</p>
+                      <p className="mb-1 text-xs font-medium text-slate-300">📄 {t('textFile')} (.txt)</p>
                       <pre className="rounded bg-slate-900 p-2 text-xs text-slate-500">
 {`sodium
 lithium
@@ -866,7 +865,7 @@ create`}
                       </pre>
                     </div>
                     <div>
-                      <p className="mb-1 text-xs font-medium text-slate-300">📋 JSON экспорт (.json)</p>
+                      <p className="mb-1 text-xs font-medium text-slate-300">📋 {t('jsonExportFile')} (.json)</p>
                       <pre className="rounded bg-slate-900 p-2 text-xs text-slate-500">
 {`{
   "gameVersion": "1.20.1",
@@ -891,7 +890,7 @@ create`}
                     {importing ? (
                       <span className="flex items-center gap-2">
                         <Loader2 className="h-4 w-4 animate-spin text-violet-400" />
-                        Поиск модов... {importProgress} / {importTotal}
+                        {t('searchingMods')} {importProgress} / {importTotal}
                         {cfApiKey && (
                           <span className="rounded bg-slate-800 px-1.5 py-0.5 text-xs text-slate-500">
                             Modrinth → CurseForge
@@ -901,7 +900,7 @@ create`}
                     ) : (
                       <span className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                        Импорт завершён
+                        {t('importCompleted')}
                       </span>
                     )}
                   </span>
@@ -910,7 +909,7 @@ create`}
                       onClick={cancelImport}
                       className="rounded-lg bg-red-600/20 px-3 py-1 text-xs text-red-400 transition hover:bg-red-600/30"
                     >
-                      Отменить
+                      {t('cancel')}
                     </button>
                   )}
                 </div>
@@ -927,21 +926,21 @@ create`}
                 <div className={`mb-4 grid gap-2 ${versionMismatchCount > 0 ? 'grid-cols-4' : 'grid-cols-3'}`}>
                   <div className="rounded-lg bg-emerald-500/10 p-3 text-center">
                     <p className="text-lg font-bold text-emerald-400">{foundCount}</p>
-                    <p className="text-xs text-emerald-500">Найдено</p>
+                    <p className="text-xs text-emerald-500">{t('foundCount')}</p>
                   </div>
                   {versionMismatchCount > 0 && (
                     <div className="rounded-lg bg-orange-500/10 p-3 text-center">
                       <p className="text-lg font-bold text-orange-400">{versionMismatchCount}</p>
-                      <p className="text-xs text-orange-500">Не та версия</p>
+                      <p className="text-xs text-orange-500">{t('wrongVersion')}</p>
                     </div>
                   )}
                   <div className="rounded-lg bg-yellow-500/10 p-3 text-center">
                     <p className="text-lg font-bold text-yellow-400">{notFoundCount}</p>
-                    <p className="text-xs text-yellow-500">Не найдено</p>
+                    <p className="text-xs text-yellow-500">{t('notFound')}</p>
                   </div>
                   <div className="rounded-lg bg-red-500/10 p-3 text-center">
                     <p className="text-lg font-bold text-red-400">{errorCount}</p>
-                    <p className="text-xs text-red-500">Ошибки</p>
+                    <p className="text-xs text-red-500">{t('errors')}</p>
                   </div>
                 </div>
               )}
@@ -981,10 +980,10 @@ create`}
                           {result.availableVersions && result.availableVersions.length > 0 && (
                             <div className="mt-1.5 ml-8">
                               <p className="text-xs text-slate-500">
-                                Доступные версии:{' '}
+                                {t('availableVersions')}{' '}
                                 <span className="text-slate-400">
                                   {result.availableVersions.slice(0, 8).join(', ')}
-                                  {result.availableVersions.length > 8 && ` и ещё ${result.availableVersions.length - 8}...`}
+                                  {result.availableVersions.length > 8 && ` ${t('and')} ${t('more')} ${result.availableVersions.length - 8}...`}
                                 </span>
                               </p>
                             </div>
@@ -999,7 +998,7 @@ create`}
                             <p className="truncate text-sm font-medium text-white">{result.mod.title}</p>
                             <div className="flex flex-wrap items-center gap-1.5">
                               <SourceBadge source={result.mod.source} />
-                              <span className="text-xs text-slate-500">запрос: {result.query}</span>
+                              <span className="text-xs text-slate-500">{t('query')}: {result.query}</span>
                               {result.file && (
                                 <>
                                   <span className="truncate text-xs text-emerald-500">✓ {result.file.name}</span>
@@ -1022,8 +1021,8 @@ create`}
                           {result.status === 'not_found' && !result.error && (
                             <p className="text-xs text-yellow-500">
                               {cfApiKey
-                                ? 'Мод не найден ни на Modrinth, ни на CurseForge'
-                                : 'Не найден на Modrinth. Добавьте CF API ключ для доп. поиска'}
+                                ? t('modNotFoundAnywhere')
+                                : t('notFoundModrinthAddCf')}
                             </p>
                           )}
                         </div>
@@ -1053,8 +1052,8 @@ create`}
                     <div className="rounded-lg border border-orange-500/20 bg-orange-500/5 p-3">
                       <p className="text-xs text-orange-400">
                         <AlertCircle className="mr-1 inline h-3 w-3" />
-                        <strong>{versionMismatchCount}</strong> мод(ов) не имеют файлов для MC {gameVersion || detectedVersion}.
-                        Они НЕ будут добавлены в список. Проверьте доступные версии выше.
+                        <strong>{versionMismatchCount}</strong> {t('modsNoFilesForVersion')} {gameVersion || detectedVersion}.
+                        {t('notAddedCheckVersions')}
                       </p>
                     </div>
                   )}
@@ -1066,7 +1065,7 @@ create`}
                         className="flex-1 rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-500 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:from-emerald-500 hover:to-emerald-400"
                       >
                         <CheckCircle2 className="mr-2 inline h-4 w-4" />
-                        Добавить найденные ({foundCount}) в список
+                        {t('addFoundToList')} ({foundCount}) {t('inList')}
                       </button>
                     )}
                     <button
@@ -1079,15 +1078,15 @@ create`}
                       className="rounded-lg bg-slate-700 px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-slate-600"
                     >
                       <RefreshCw className="mr-1.5 inline h-4 w-4" />
-                      Заново
+                      {t('retry')}
                     </button>
                   </div>
 
                   {foundCount === 0 && notFoundCount + versionMismatchCount + errorCount > 0 && (
                     <div className="rounded-lg border border-red-500/20 bg-red-500/5 p-3 text-center">
                       <p className="text-xs text-red-400">
-                        Ни один мод не был найден с подходящими файлами.
-                        Попробуйте изменить версию MC или загрузчик.
+                        {t('noModsFoundWithFiles')}
+                        {t('tryChangeVersion')}
                       </p>
                     </div>
                   )}
@@ -1150,14 +1149,14 @@ export function App() {
           result = await searchModrinth(q, gv, ld);
         } else {
           if (!key) {
-            throw new Error('Для CurseForge требуется API ключ. Нажмите на иконку ключа и введите ваш API ключ.');
+            throw new Error(t('cfApiKeyRequired'));
           }
           result = await searchCurseForge(q, gv, ld, key);
         }
         setResults(result.mods);
         setTotalResults(result.total);
       } catch (err) {
-        setSearchError(err instanceof Error ? err.message : 'Ошибка поиска');
+        setSearchError(err instanceof Error ? err.message : t('searchError'));
         setResults([]);
         setTotalResults(0);
       } finally {
@@ -1502,7 +1501,7 @@ export function App() {
               <div className="mb-4 flex items-start gap-3 rounded-xl border border-red-500/20 bg-red-500/10 p-4">
                 <AlertCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-400" />
                 <div>
-                  <p className="text-sm font-medium text-red-400">Ошибка поиска</p>
+                  <p className="text-sm font-medium text-red-400">{t('searchError')}</p>
                   <p className="mt-1 text-xs text-red-400/80">{searchError}</p>
                 </div>
               </div>
@@ -1526,8 +1525,8 @@ export function App() {
             {!searching && !searchError && results.length === 0 && query && (
               <div className="rounded-xl border border-slate-800 bg-slate-800/40 py-16 text-center">
                 <Search className="mx-auto h-10 w-10 text-slate-600" />
-                <p className="mt-3 text-sm text-slate-400">Ничего не найдено</p>
-                <p className="mt-1 text-xs text-slate-600">Попробуйте изменить запрос или фильтры</p>
+                <p className="mt-3 text-sm text-slate-400">{t('nothingFound')}</p>
+                <p className="mt-1 text-xs text-slate-600">{t('tryDifferentQuery')}</p>
               </div>
             )}
 
@@ -1596,9 +1595,9 @@ export function App() {
                 >
                   <Upload className="h-5 w-5 flex-shrink-0 text-violet-400" />
                   <div>
-                    <p className="text-sm font-medium text-violet-300">Импорт из файла</p>
+                    <p className="text-sm font-medium text-violet-300">{t('importFromFileTitle')}</p>
                     <p className="text-xs text-slate-500">
-                      .txt, .json, .csv — перетащите или выберите файл
+                      {t('importFromFileDesc')}
                     </p>
                   </div>
                 </button>
@@ -1607,33 +1606,23 @@ export function App() {
               {/* Info panel */}
               <div className="mt-4 rounded-xl border border-slate-800 bg-slate-800/40 p-4">
                 <h4 className="mb-2 flex items-center gap-2 text-xs font-semibold text-slate-400">
-                  <Info className="h-3.5 w-3.5" /> Как использовать
+                  <Info className="h-3.5 w-3.5" /> {t('howToUse')}
                 </h4>
                 <ul className="space-y-1.5 text-xs text-slate-500">
-                  <li>1. Выберите версию Minecraft и загрузчик</li>
-                  <li>2. Найдите нужные моды через поиск</li>
-                  <li>3. Или импортируйте список модов из файла</li>
-                  <li>4. Нажмите «Версии» для выбора файла</li>
-                  <li>5. Экспортируйте или скачивайте</li>
+                  <li>1. {t('step1')}</li>
+                  <li>2. {t('step2')}</li>
+                  <li>3. {t('step3')}</li>
+                  <li>4. {t('step4')}</li>
+                  <li>5. {t('step5')}</li>
                 </ul>
                 <div className="mt-3 rounded-lg bg-slate-900/60 p-2.5">
                   <p className="text-xs text-slate-600">
-                    <span className="font-medium text-violet-400">Импорт</span> — загрузите .txt (по строкам), .json (экспорт, CurseForge manifest, Modrinth index) или .csv файл.
+                    {t('importDescription')}
                   </p>
                 </div>
                 <div className="mt-2 rounded-lg bg-slate-900/60 p-2.5">
                   <p className="text-xs text-slate-600">
-                    <span className="font-medium text-emerald-500">Modrinth</span> — открытый API, работает без ключа.
-                    <br />
-                    <span className="font-medium text-orange-500">CurseForge</span> — требуется API ключ с{' '}
-                    <a
-                      href="https://console.curseforge.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline"
-                    >
-                      console.curseforge.com
-                    </a>
+                    {t('apiInfo')}
                   </p>
                 </div>
               </div>
