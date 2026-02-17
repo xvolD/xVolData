@@ -1098,7 +1098,7 @@ export const SHADER_LOADERS = [
 export const CONTENT_TYPES: { value: ContentType; label: string }[] = [
   { value: 'mod', label: 'Mods' },
   { value: 'datapack', label: 'Datapacks' },
-  { value: 'resourcepack', label: 'Resource Packs' },
+  { value: 'resourcepack', label: 'Resourcepacks' },
   { value: 'shader', label: 'Shaders' },
 ];
 

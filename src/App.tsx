@@ -1428,7 +1428,7 @@ export function App() {
                 className={cn(
                   'rounded-lg px-4 py-2 text-sm font-medium transition',
                   contentType === type.value
-                    ? type.value === 'resourcepack'
+                    ? contentType === 'resourcepack'
                       ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
                       : 'bg-emerald-600 text-white shadow-lg shadow-emerald-500/20'
                     : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'
