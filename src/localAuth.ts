@@ -179,8 +179,68 @@ export function saveCfApiKey(userId: string, apiKey: string): boolean {
   return updateUser(userId, { cfApiKey: apiKey });
 }
 
-// Восстановление пароля (эмуляция)
-export function requestPasswordReset(emailOrUsername: string): { success: boolean; message: string } {
+// Генерация токена восстановления пароля
+export function generateResetToken(userId: string): string {
+  const token = crypto.randomUUID();
+  const expiry = Date.now() + 3600000; // 1 час
+  
+  const resetData = {
+    userId,
+    token,
+    expiry,
+  };
+  
+  localStorage.setItem(`xvoldata_reset_${token}`, JSON.stringify(resetData));
+  return token;
+}
+
+// Проверка токена восстановления
+export function validateResetToken(token: string): { valid: boolean; userId?: string } {
+  const resetDataJson = localStorage.getItem(`xvoldata_reset_${token}`);
+  if (!resetDataJson) {
+    return { valid: false };
+  }
+  
+  const resetData = JSON.parse(resetDataJson);
+  
+  // Проверка срока действия
+  if (Date.now() > resetData.expiry) {
+    localStorage.removeItem(`xvoldata_reset_${token}`);
+    return { valid: false };
+  }
+  
+  return { valid: true, userId: resetData.userId };
+}
+
+// Сброс пароля по токену
+export async function resetPassword(token: string, newPassword: string): Promise<{ success: boolean; error?: string }> {
+  const validation = validateResetToken(token);
+  
+  if (!validation.valid || !validation.userId) {
+    return { success: false, error: 'Недействительная или истекшая ссылка для восстановления' };
+  }
+  
+  // Проверка нового пароля
+  const passwordValidation = validatePassword(newPassword);
+  if (!passwordValidation.isValid) {
+    return { success: false, error: passwordValidation.errors.join('. ') };
+  }
+  
+  // Обновление пароля
+  const passwordHash = await hashPassword(newPassword);
+  const success = updateUser(validation.userId, { passwordHash });
+  
+  if (success) {
+    // Удаление использованного токена
+    localStorage.removeItem(`xvoldata_reset_${token}`);
+    return { success: true };
+  }
+  
+  return { success: false, error: 'Ошибка обновления пароля' };
+}
+
+// Запрос восстановления пароля
+export function requestPasswordReset(emailOrUsername: string): { success: boolean; message: string; email?: string; userId?: string } {
   const users = getAllUsers();
   const user = users.find(u => u.email === emailOrUsername || u.username === emailOrUsername);
   
@@ -191,10 +251,17 @@ export function requestPasswordReset(emailOrUsername: string): { success: boolea
     };
   }
   
-  // В реальном приложении здесь была бы отправка email
-  // Для демонстрации просто возвращаем успех
+  if (!user.email) {
+    return {
+      success: false,
+      message: 'У этого пользователя не указан email'
+    };
+  }
+  
   return { 
     success: true, 
-    message: `Инструкции по восстановлению пароля отправлены на ${user.email || 'ваш email'}` 
+    message: `Инструкции по восстановлению пароля отправлены на ${user.email}`,
+    email: user.email,
+    userId: user.id,
   };
 }

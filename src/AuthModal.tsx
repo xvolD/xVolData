@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { X, Mail, Lock, User, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
-import { register, login, validatePassword, requestPasswordReset } from './localAuth';
+import { register, login, validatePassword, requestPasswordReset, generateResetToken } from './localAuth';
 import { cn } from './utils/cn';
 import type { Language } from './i18n';
+import emailjs from '@emailjs/browser';
 
 type AuthView = 'login' | 'register' | 'reset';
 
@@ -86,12 +87,37 @@ export function AuthModal({ onClose, onSuccess, language, t }: AuthModalProps) {
 
     try {
       const result = requestPasswordReset(emailOrUsername);
-      if (result.success) {
-        setSuccess(result.message);
-        setTimeout(() => {
-          setView('login');
-          setSuccess('');
-        }, 2000);
+      if (result.success && result.email && result.userId) {
+        // Генерация токена восстановления
+        const token = generateResetToken(result.userId);
+        
+        // Формирование ссылки для восстановления
+        const resetLink = `${window.location.origin}${window.location.pathname}?reset=${token}`;
+        
+        // Отправка email через EmailJS
+        try {
+          await emailjs.send(
+            'service_xvoldata', // Service ID (нужно создать в EmailJS)
+            'template_reset', // Template ID (нужно создать в EmailJS)
+            {
+              to_email: result.email,
+              to_name: emailOrUsername,
+              reset_link: resetLink,
+              app_name: 'xVolData',
+            },
+            'YOUR_PUBLIC_KEY' // Public Key из EmailJS (нужно заменить)
+          );
+          
+          setSuccess(`Письмо с инструкциями отправлено на ${result.email}`);
+          setTimeout(() => {
+            setView('login');
+            setSuccess('');
+          }, 3000);
+        } catch (emailError) {
+          // Если отправка email не удалась, показываем ссылку напрямую
+          setSuccess(`Ссылка для восстановления: ${resetLink}`);
+          console.error('Email sending failed:', emailError);
+        }
       } else {
         setError(result.message);
       }

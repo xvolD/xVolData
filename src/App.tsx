@@ -17,6 +17,7 @@ import {
 import { cn } from './utils/cn';
 import { type Language, LANGUAGES, getTranslation } from './i18n';
 import { AuthModal } from './AuthModal';
+import { ResetPasswordPage } from './ResetPasswordPage';
 import { getCurrentUser, logout, saveMods, saveCfApiKey, type UserAccount, type SavedMod } from './localAuth';
 
 type Source = 'modrinth' | 'curseforge';
@@ -1109,6 +1110,11 @@ export function App() {
   const [showLangMenu, setShowLangMenu] = useState(false);
   const t = (key: string) => getTranslation(language, key);
   
+  // Check for password reset token in URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const resetToken = urlParams.get('reset');
+  const [showResetPage, setShowResetPage] = useState(!!resetToken);
+  
   // Auth state
   const [currentUser, setCurrentUser] = useState<UserAccount | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -1195,6 +1201,32 @@ export function App() {
       }
     }
   };
+
+  // Handle password reset success
+  const handleResetSuccess = () => {
+    setShowResetPage(false);
+    setShowAuthModal(true);
+    // Clear URL parameter
+    window.history.replaceState({}, document.title, window.location.pathname);
+  };
+
+  // Handle back from reset page
+  const handleResetBack = () => {
+    setShowResetPage(false);
+    // Clear URL parameter
+    window.history.replaceState({}, document.title, window.location.pathname);
+  };
+
+  // If showing reset page, render only that
+  if (showResetPage && resetToken) {
+    return (
+      <ResetPasswordPage
+        token={resetToken}
+        onSuccess={handleResetSuccess}
+        onBack={handleResetBack}
+      />
+    );
+  }
 
   // Search
   const doSearch = useCallback(
