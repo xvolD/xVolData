@@ -1,28 +1,6 @@
 <div align="center">
 
-```
-    ╔═══════════════════════════════════════════════════════════════╗
-    ║                                                               ║
-    ║     ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄     ║
-    ║                                                               ║
-    ║         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒         ║
-    ║         ▒▒                                           ▒▒         ║
-    ║         ▒▒    ▀▄▀▄▀▄  ▀▄▀▄▀▄  ▀▄▀▄▀▄  ▀▄▀▄▀▄  ▀▄▀▄▀▄  ▒▒         ║
-    ║         ▒▒    ▄▀▄▀▄▀  ▄▀▄▀▄▀  ▄▀▄▀▄▀  ▄▀▄▀▄▀  ▄▀▄▀▄▀  ▒▒         ║
-    ║         ▒▒                                           ▒▒         ║
-    ║         ▒▒         ╦ ╦ ╦  ╦ ╔═╗ ╦   ╔╦╗ ╔═╗ ╔╦╗ ╔═╗  ▒▒         ║
-    ║         ▒▒         ╔╩╦╝ ╚╗╔╝ ║ ║ ║    ║║ ╠═╣  ║  ╠═╣  ▒▒         ║
-    ║         ▒▒         ╩ ╚═  ╚╝  ╚═╝ ╩═╝ ═╩╝ ╩ ╩  ╩  ╩ ╩  ▒▒         ║
-    ║         ▒▒                                           ▒▒         ║
-    ║         ▒▒    ▀▄▀▄▀▄  ▀▄▀▄▀▄  ▀▄▀▄▀▄  ▀▄▀▄▀▄  ▀▄▀▄▀▄  ▒▒         ║
-    ║         ▒▒    ▄▀▄▀▄▀  ▄▀▄▀▄▀  ▄▀▄▀▄▀  ▄▀▄▀▄▀  ▄▀▄▀▄▀  ▒▒         ║
-    ║         ▒▒                                           ▒▒         ║
-    ║         ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒         ║
-    ║                                                               ║
-    ║     ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄     ║
-    ║                                                               ║
-    ╚═══════════════════════════════════════════════════════════════╝
-```
+![xVolData Banner](./xvoldata-banner.jpg)
 
 ### ⚡ Powerful Minecraft Mod Search & Management Tool ⚡
 
@@ -42,14 +20,14 @@
 
 ```
 ╔══════════════════════════════════════════════════════════════════╗
-║  ◉  SEARCH      │  Search mods across Modrinth & CurseForge    ║
-║  ◈  MANAGE      │  Organize mod lists with version selection   ║
-║  ◭  IMPORT      │  Load modlists from JSON, TXT, CSV formats   ║
-║  ◮  EXPORT      │  Share your mod collections easily           ║
-║  ◆  FILTER      │  By game version & loader (Fabric/Forge/etc) ║
-║  ◬  DOWNLOAD    │  Direct download links for all mods          ║
-║  ◉  LANGUAGES   │  Multi-language support (RU, EN, DE)         ║
-║  ◐  DARK THEME  │  Comfortable browsing experience             ║
+║  ◉  SEARCH      │  Search mods across Modrinth & CurseForge      ║
+║  ◈  MANAGE      │  Organize mod lists with version selection     ║
+║  ◭  IMPORT      │  Load modlists from JSON, TXT, CSV formats     ║
+║  ◮  EXPORT      │  Share your mod collections easily             ║
+║  ◆  FILTER      │  By game version & loader (Fabric/Forge/etc)   ║
+║  ◬  DOWNLOAD    │  Direct download links for all mods            ║
+║  ◉  LANGUAGES   │  Multi-language support (RU, EN, DE)           ║
+║  ◐  DARK THEME  │  Comfortable browsing experience               ║
 ╚══════════════════════════════════════════════════════════════════╝
 ```
 
@@ -61,12 +39,12 @@ xVolData is a powerful tool for searching and managing Minecraft mods. The proje
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  ◈  Fast search across two major platforms simultaneously  │
-│  ◆  Smart filtering by game versions and loaders          │
-│  ◈  Convenient mod list management                        │
-│  ◉  Multi-language interface support                      │
-│  ◮  Import and export modlists in various formats         │
-│  ◭  Modern and intuitive interface                        │
+│  ◈  Fast search across two major platforms simultaneously   │
+│  ◆  Smart filtering by game versions and loaders            │
+│  ◈  Convenient mod list management                          │
+│  ◉  Multi-language interface support                        │
+│  ◮  Import and export modlists in various formats           │
+│  ◭  Modern and intuitive interface                          │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -112,8 +90,8 @@ xVolData/
 
 ```
 ╔═══════════════════════════════════════════════════════════╗
-║  ◉  Modrinth API   │  Open API, no key required         ║
-║  ◈  CurseForge API │  Requires API key (optional)       ║
+║  ◉  Modrinth API   │  Open API, no key required           ║
+║  ◈  CurseForge API │  Requires API key (optional)         ║
 ╚═══════════════════════════════════════════════════════════╝
 ```
 
@@ -125,9 +103,9 @@ The application uses official APIs:
 
 ```
 ┌──────────────────────────────────────┐
-│  ◈  RU  │  Русский (Russian)       │
-│  ◆  EN  │  English                 │
-│  ◉  DE  │  Deutsch (German)        │
+│  ◈  RU  │  Русский (Russian)         │
+│  ◆  EN  │  English                   │
+│  ◉  DE  │  Deutsch (German)          │
 └──────────────────────────────────────┘
 ```
 
@@ -142,7 +120,7 @@ MIT
 ```
     ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄
     
-    Made by xvolD with ◈ for the Minecraft community
+    Made by xvolD with <3 for the Minecraft community
     
     ▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄▀▄
 ```
